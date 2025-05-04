@@ -1,10 +1,21 @@
 const productos = [
   {
-    nombre: "Camiseta FLAWLESS Blanca",
+    nombre: "Camiseta FLAWLESS",
     tipo: "camiseta",
     precio: "12,95€",
-    imagenes: ["./images/camiseta.png", "./images/camiseta2.png"],
-    descripcion: "Camiseta oversize con diseño exclusivo. Ideal para el verano."
+    descripcion: "Camiseta oversize con diseño exclusivo. Ideal para el verano.",
+    colores: [
+      {
+        nombre: "Blanca",
+        codigo: "#ffffff",
+        imagenes: ["./images/camiseta.png", "./images/camiseta2.png"]
+      },
+      {
+        nombre: "Negra",
+        codigo: "#000000",
+        imagenes: ["./images/camisetaFlawlessNegraDelante.png", "./images/camisetaFlawlessNegraDetras.png"]
+      }
+    ]
   },
   {
     nombre: "Camiseta WORK IT Negra",
@@ -14,11 +25,11 @@ const productos = [
     descripcion: "Camiseta con diseño perfecto para ir al gimnasio o salir a la calle."
   },
   {
-    nombre: "Pantalón ROW",
-    tipo: "pantalón",
-    precio: "69,99€",
-    imagenes: ["./images/pantalon1.png", "./images/pantalon2.png"],
-    descripcion: "Pantalón cargo con múltiples bolsillos. Comodidad y estilo en uno solo."
+    nombre: "Pantalón WORK IT Negra Ajedrez",
+    tipo: "camiseta",
+    precio: "12,95€",
+    imagenes: ["./images/camiseta5.png", "./images/camiseta6.png"],
+    descripcion: "Camiseta con diseño perfecto salir a la calle. Ideal para el verano."
   },
   {
     nombre: "Camiseta ROW",
@@ -50,9 +61,12 @@ function renderProductos() {
     const card = document.createElement("div");
     card.className = "producto";
 
+    let currentColor = 0;
     let currentImg = 0;
+
     const img = document.createElement("img");
-    img.src = producto.imagenes[currentImg];
+    const getImgs = () => producto.colores ? producto.colores[currentColor].imagenes : producto.imagenes;
+    img.src = getImgs()[currentImg];
     img.alt = producto.nombre;
 
     const imagenContenedor = document.createElement("div");
@@ -65,24 +79,47 @@ function renderProductos() {
     const btnPrev = document.createElement("button");
     btnPrev.className = "flecha izquierda";
     btnPrev.textContent = "<";
-    btnPrev.onclick = (e) => {
+    btnPrev.onclick = e => {
       e.stopPropagation();
-      currentImg = (currentImg - 1 + producto.imagenes.length) % producto.imagenes.length;
-      img.src = producto.imagenes[currentImg];
+      const arr = getImgs();
+      currentImg = (currentImg - 1 + arr.length) % arr.length;
+      img.src = arr[currentImg];
     };
 
     const btnNext = document.createElement("button");
     btnNext.className = "flecha derecha";
     btnNext.textContent = ">";
-    btnNext.onclick = (e) => {
+    btnNext.onclick = e => {
       e.stopPropagation();
-      currentImg = (currentImg + 1) % producto.imagenes.length;
-      img.src = producto.imagenes[currentImg];
+      const arr = getImgs();
+      currentImg = (currentImg + 1) % arr.length;
+      img.src = arr[currentImg];
     };
 
     flechasContenedor.appendChild(btnPrev);
     flechasContenedor.appendChild(btnNext);
     imagenContenedor.appendChild(flechasContenedor);
+
+    // Swatches de color dentro de la imagen, justo debajo de las flechas
+    if (producto.colores) {
+      const coloresCont = document.createElement("div");
+      coloresCont.className = "colores-cont";
+      producto.colores.forEach((clr, idx) => {
+        const swatch = document.createElement("button");
+        swatch.className = "swatch";
+        swatch.title = clr.nombre;
+        swatch.style.backgroundColor = clr.codigo;
+        swatch.dataset.colorIndex = idx;
+        swatch.addEventListener("click", e => {
+          e.stopPropagation();
+          currentColor = parseInt(swatch.dataset.colorIndex);
+          currentImg = 0;
+          img.src = producto.colores[currentColor].imagenes[currentImg];
+        });
+        coloresCont.appendChild(swatch);
+      });
+      imagenContenedor.appendChild(coloresCont);
+    }
 
     const descripcion = document.createElement("div");
     descripcion.className = "descripcion";
@@ -111,7 +148,7 @@ document.querySelectorAll(".filtros button").forEach(boton => {
   });
 });
 
-document.getElementById("buscador").addEventListener("input", (e) => {
+document.getElementById("buscador").addEventListener("input", e => {
   terminoBusqueda = e.target.value;
   renderProductos();
 });

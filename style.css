@@ -1,4 +1,3 @@
-/* Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
 body {
@@ -107,7 +106,7 @@ header {
   display: flex;
   justify-content: center;
   position: absolute;
-  bottom: 10px;
+  bottom: 60px; /* elevado para dejar espacio a swatches */
   left: 50%;
   transform: translateX(-50%);
   gap: 1rem;
@@ -128,6 +127,31 @@ header {
 .flecha:hover {
   background: #de3838;
   color: white;
+}
+
+/* Swatches de color */
+.colores-cont {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  position: absolute;
+  bottom: 10px; /* justo debajo de las flechas */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.swatch {
+  width: 20px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+}
+
+.swatch:hover {
+  border-color: #333;
 }
 
 .info {

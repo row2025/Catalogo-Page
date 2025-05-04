@@ -236,7 +236,8 @@ footer.contacto a:hover {
   }
 
   .logo {
-    height: 0px;
+    height: 60px;
+    width: auto;
     left: 1rem;
-  }
+  }  
 }

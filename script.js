@@ -25,7 +25,7 @@ const productos = [
     descripcion: "Camiseta con diseño perfecto para ir al gimnasio o salir a la calle."
   },
   {
-    nombre: "Pantalón WORK IT Negra Ajedrez",
+    nombre: "Camiseta WORK IT Negra Ajedrez",
     tipo: "camiseta",
     precio: "12,95€",
     imagenes: ["./images/camiseta5.png", "./images/camiseta6.png"],

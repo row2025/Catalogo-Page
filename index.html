@@ -1,47 +1,59 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ROW - Catálogo</title>
-  <link rel="stylesheet" href="./style.css" />
-</head>
-<body>
-  <header>
-    <img src="./images/iconoRow.png" alt="Logo ROW" class="logo" />
-    <span class="titulo">ROW</span>
-  </header>
-  
-  
-  <!-- Filtros y buscador -->
-  <section class="filtros">
-    <div class="grupo-filtros">
-      <button data-filtro="todos" class="activo">Todos</button>
-      <button data-filtro="camiseta">Camisetas</button>
-      <!-- <button data-filtro="pantalón">Pantalones</button> -->
-    </div>
-    <input type="text" id="buscador" placeholder="Buscar producto..." />
-  </section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ROW - Catálogo</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <img src="./images/iconoRow.png" alt="Logo ROW" class="logo" />
+      <span class="titulo">ROW</span>
+      <button class="menu-toggle" id="menuToggle">☰</button>
+    </header>
 
-  <!-- Catálogo -->
-  <main class="catalogo" id="catalogo"></main>
+    <!-- Filtros y buscador -->
+    <section class="filtros" id="filtros">
+      <div class="grupo-filtros">
+        <button data-filtro="todos" class="activo">Todos</button>
+        <button data-filtro="camiseta">Camisetas</button>
+        <!-- <button data-filtro="pantalón">Pantalones</button> -->
+      </div>
+      <input type="text" id="buscador" placeholder="Buscar producto..." />
+    </section>
 
-  <!-- Sección contacto -->
-  <footer class="contacto">
-    <h2>Contáctanos</h2>
-    <p>Email:
-      <a href="mailto:row202502@gmail.com?subject=Consulta&body=Hola%2C%20me%20interesa%20su%20producto.">
-        row202502@gmail.com
-      </a>
-    </p>
-    <p>Instagram: <a href="https://www.instagram.com/rowessences/" target="_blank">@rowessences</a></p>
-    <p>Teléfono:
-      <a href="https://wa.me/34697247882?text=Hola%2C%20me%20interesa%20su%20producto" target="_blank">
-        +34 697 247 882
-      </a>
-    </p>
-  </footer>
+    <!-- Catálogo -->
+    <main class="catalogo" id="catalogo"></main>
 
-  <script src="./script.js"></script>
-</body>
+    <!-- Sección contacto -->
+    <footer class="contacto">
+      <h2>Contáctanos</h2>
+      <p>
+        Email:
+        <a
+          href="mailto:row202502@gmail.com?subject=Consulta&body=Hola%2C%20me%20interesa%20su%20producto."
+        >
+          row202502@gmail.com
+        </a>
+      </p>
+      <p>
+        Instagram:
+        <a href="https://www.instagram.com/rowessences/" target="_blank"
+          >@rowessences</a
+        >
+      </p>
+      <p>
+        Teléfono:
+        <a
+          href="https://wa.me/34697247882?text=Hola%2C%20me%20interesa%20su%20producto"
+          target="_blank"
+        >
+          +34 697 247 882
+        </a>
+      </p>
+    </footer>
+
+    <script src="./script.js"></script>
+  </body>
 </html>

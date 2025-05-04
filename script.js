@@ -1,156 +1,109 @@
-const productos = [
-  {
-    nombre: "Camiseta FLAWLESS",
-    tipo: "camiseta",
-    precio: "12,95€",
-    descripcion: "Camiseta oversize con diseño exclusivo. Ideal para el verano.",
-    colores: [
-      {
-        nombre: "Blanca",
-        codigo: "#ffffff",
-        imagenes: ["./images/camiseta.png", "./images/camiseta2.png"]
-      },
-      {
-        nombre: "Negra",
-        codigo: "#000000",
-        imagenes: ["./images/camisetaFlawlessNegraDelante.png", "./images/camisetaFlawlessNegraDetras.png"]
-      }
-    ]
-  },
-  {
-    nombre: "Camiseta WORK IT Negra",
-    tipo: "camiseta",
-    precio: "12,95€",
-    imagenes: ["./images/camiseta3.png", "./images/camiseta4.png"],
-    descripcion: "Camiseta con diseño perfecto para ir al gimnasio o salir a la calle."
-  },
-  {
-    nombre: "Pantalón WORK IT Negra Ajedrez",
-    tipo: "camiseta",
-    precio: "12,95€",
-    imagenes: ["./images/camiseta5.png", "./images/camiseta6.png"],
-    descripcion: "Camiseta con diseño perfecto salir a la calle. Ideal para el verano."
-  },
-  {
-    nombre: "Camiseta ROW",
-    tipo: "camiseta",
-    precio: "29,99€",
-    imagenes: ["./images/camiseta1.png", "./images/camiseta2.png"],
-    descripcion: "Camiseta básica con diseño minimalista y suave al tacto."
-  }
-];
+document.addEventListener("DOMContentLoaded", () => {
+  const catalogo = document.getElementById("catalogo");
+  const botonesFiltro = document.querySelectorAll(".grupo-filtros button");
+  const inputBuscador = document.getElementById("buscador");
+  const menuToggle = document.getElementById("menuToggle");
+  const filtros = document.getElementById("filtros");
 
-const catalogo = document.getElementById("catalogo");
-let filtroActivo = "todos";
-let terminoBusqueda = "";
+  let productos = [];
+  let filtroActivo = "todos";
+  let textoBusqueda = "";
 
-function renderProductos() {
-  catalogo.innerHTML = "";
-  const filtrados = productos.filter(p => {
-    const coincideTipo = filtroActivo === "todos" || p.tipo === filtroActivo;
-    const coincideTexto = p.nombre.toLowerCase().includes(terminoBusqueda.toLowerCase());
-    return coincideTipo && coincideTexto;
+  fetch("./productos.json")
+    .then((response) => response.json())
+    .then((data) => {
+      productos = data;
+      renderizarCatalogo();
+    })
+    .catch((error) => console.error("Error al cargar productos:", error));
+
+  botonesFiltro.forEach((boton) => {
+    boton.addEventListener("click", () => {
+      botonesFiltro.forEach((b) => b.classList.remove("activo"));
+      boton.classList.add("activo");
+      filtroActivo = boton.dataset.filtro;
+      renderizarCatalogo();
+    });
   });
 
-  if (filtrados.length === 0) {
-    catalogo.innerHTML = "<p style='grid-column: 1 / -1; text-align:center;'>No se encontraron productos.</p>";
-    return;
-  }
+  inputBuscador.addEventListener("input", (e) => {
+    textoBusqueda = e.target.value.toLowerCase();
+    renderizarCatalogo();
+  });
 
-  filtrados.forEach(producto => {
-    const card = document.createElement("div");
-    card.className = "producto";
+  menuToggle.addEventListener("click", () => {
+    filtros.classList.toggle("mostrar");
+  });
 
-    let currentColor = 0;
-    let currentImg = 0;
+  function renderizarCatalogo() {
+    catalogo.innerHTML = "";
 
-    const img = document.createElement("img");
-    const getImgs = () => producto.colores ? producto.colores[currentColor].imagenes : producto.imagenes;
-    img.src = getImgs()[currentImg];
-    img.alt = producto.nombre;
+    const productosFiltrados = productos.filter((producto) => {
+      const coincideFiltro =
+        filtroActivo === "todos" || producto.tipo === filtroActivo;
+      const coincideBusqueda = producto.nombre
+        .toLowerCase()
+        .includes(textoBusqueda);
+      return coincideFiltro && coincideBusqueda;
+    });
 
-    const imagenContenedor = document.createElement("div");
-    imagenContenedor.className = "imagen-contenedor";
-    imagenContenedor.appendChild(img);
+    productosFiltrados.forEach((producto) => {
+      const div = document.createElement("div");
+      div.className = "producto";
 
-    const flechasContenedor = document.createElement("div");
-    flechasContenedor.className = "flechas";
+      const imagenes = producto.imagenes || [];
+      let indiceImagen = 0;
 
-    const btnPrev = document.createElement("button");
-    btnPrev.className = "flecha izquierda";
-    btnPrev.textContent = "<";
-    btnPrev.onclick = e => {
-      e.stopPropagation();
-      const arr = getImgs();
-      currentImg = (currentImg - 1 + arr.length) % arr.length;
-      img.src = arr[currentImg];
-    };
+      div.innerHTML = `
+        <div class="imagen-contenedor">
+          <img src="${imagenes[indiceImagen]}" alt="${producto.nombre}" />
+          <div class="flechas">
+            <button class="flecha izq">&#9664;</button>
+            <button class="flecha der">&#9654;</button>
+          </div>
+          <div class="colores-cont">
+            ${(producto.colores || [])
+              .map(
+                (color, index) =>
+                  `<button class="swatch" style="background:${color}" data-index="${index}"></button>`
+              )
+              .join("")}
+          </div>
+          <div class="descripcion">${producto.descripcion || ""}</div>
+        </div>
+        <div class="info">
+          <div class="nombre">${producto.nombre}</div>
+          <div class="precio">${producto.precio} €</div>
+        </div>
+      `;
 
-    const btnNext = document.createElement("button");
-    btnNext.className = "flecha derecha";
-    btnNext.textContent = ">";
-    btnNext.onclick = e => {
-      e.stopPropagation();
-      const arr = getImgs();
-      currentImg = (currentImg + 1) % arr.length;
-      img.src = arr[currentImg];
-    };
+      const img = div.querySelector("img");
+      const btnIzq = div.querySelector(".flecha.izq");
+      const btnDer = div.querySelector(".flecha.der");
+      const swatches = div.querySelectorAll(".swatch");
 
-    flechasContenedor.appendChild(btnPrev);
-    flechasContenedor.appendChild(btnNext);
-    imagenContenedor.appendChild(flechasContenedor);
-
-    // Swatches de color dentro de la imagen, justo debajo de las flechas
-    if (producto.colores) {
-      const coloresCont = document.createElement("div");
-      coloresCont.className = "colores-cont";
-      producto.colores.forEach((clr, idx) => {
-        const swatch = document.createElement("button");
-        swatch.className = "swatch";
-        swatch.title = clr.nombre;
-        swatch.style.backgroundColor = clr.codigo;
-        swatch.dataset.colorIndex = idx;
-        swatch.addEventListener("click", e => {
-          e.stopPropagation();
-          currentColor = parseInt(swatch.dataset.colorIndex);
-          currentImg = 0;
-          img.src = producto.colores[currentColor].imagenes[currentImg];
-        });
-        coloresCont.appendChild(swatch);
+      btnIzq.addEventListener("click", () => {
+        indiceImagen =
+          (indiceImagen - 1 + imagenes.length) % imagenes.length;
+        img.src = imagenes[indiceImagen];
       });
-      imagenContenedor.appendChild(coloresCont);
-    }
 
-    const descripcion = document.createElement("div");
-    descripcion.className = "descripcion";
-    descripcion.textContent = producto.descripcion;
+      btnDer.addEventListener("click", () => {
+        indiceImagen = (indiceImagen + 1) % imagenes.length;
+        img.src = imagenes[indiceImagen];
+      });
 
-    const info = document.createElement("div");
-    info.className = "info";
-    info.innerHTML = `
-      <div>${producto.nombre}</div>
-      <div class="precio">${producto.precio}</div>
-    `;
+      swatches.forEach((swatch) => {
+        swatch.addEventListener("click", () => {
+          const index = parseInt(swatch.dataset.index);
+          if (!isNaN(index) && imagenes[index]) {
+            indiceImagen = index;
+            img.src = imagenes[indiceImagen];
+          }
+        });
+      });
 
-    card.appendChild(imagenContenedor);
-    card.appendChild(descripcion);
-    card.appendChild(info);
-    catalogo.appendChild(card);
-  });
-}
-
-document.querySelectorAll(".filtros button").forEach(boton => {
-  boton.addEventListener("click", () => {
-    document.querySelectorAll(".filtros button").forEach(b => b.classList.remove("activo"));
-    boton.classList.add("activo");
-    filtroActivo = boton.dataset.filtro;
-    renderProductos();
-  });
+      catalogo.appendChild(div);
+    });
+  }
 });
-
-document.getElementById("buscador").addEventListener("input", e => {
-  terminoBusqueda = e.target.value;
-  renderProductos();
-});
-
-renderProductos();

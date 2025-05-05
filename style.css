@@ -238,6 +238,10 @@ footer.contacto a:hover {
     padding: 1rem;
   }
 
+  .imagen-contenedor {
+    height: 420px;
+  }
+
   .logo {
     height: 60px;
     width: auto;

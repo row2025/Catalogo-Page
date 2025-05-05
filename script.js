@@ -32,11 +32,27 @@ const productos = [
     descripcion: "Camiseta con diseño perfecto salir a la calle. Ideal para el verano."
   },
   {
-    nombre: "Camiseta ROW",
+    nombre: "Camiseta diseño de cara",
     tipo: "camiseta",
-    precio: "29,99€",
-    imagenes: ["./images/camiseta1.png", "./images/camiseta2.png"],
-    descripcion: "Camiseta básica con diseño minimalista y suave al tacto."
+    precio: "12,95€",
+    descripcion: "Camiseta básica con diseño minimalista. Ideal para el verano.",
+    colores: [
+      {
+        nombre: "Negra y roja",
+        codigo: "linear-gradient(to right, black, red)",
+        imagenes: ["./images/camisetaCaritaRoja.png", "./images/camisetaCaritaRojaDetras.png"]
+      },
+      {
+        nombre: "Negra y Morada",
+        codigo: "linear-gradient(to right, black, purple)",
+        imagenes: ["./images/camisetaCaritaMorada.png", "./images/camisetaCaritaMoradaDetras.png"]
+      },
+      {
+        nombre: "Negra y Rosa",
+        codigo: "linear-gradient(to right, black, pink)",
+        imagenes: ["./images/camisetaCaritaRosa.png", "./images/camisetaCaritaRosaDetras.png"]
+      }
+    ]
   }
 ];
 
@@ -108,7 +124,7 @@ function renderProductos() {
         const swatch = document.createElement("button");
         swatch.className = "swatch";
         swatch.title = clr.nombre;
-        swatch.style.backgroundColor = clr.codigo;
+        swatch.style.background = clr.codigo;
         swatch.dataset.colorIndex = idx;
         swatch.addEventListener("click", e => {
           e.stopPropagation();

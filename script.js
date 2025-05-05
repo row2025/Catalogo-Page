@@ -28,7 +28,7 @@ const productos = [
     nombre: "Camiseta WORK IT Negra Ajedrez",
     tipo: "camiseta",
     precio: "12,95€",
-    imagenes: ["./images/camiseta5.png", "./images/camiseta6.png"],
+    imagenes: ["./images/camiseta6.png", "./images/camiseta5.png"],
     descripcion: "Camiseta con diseño perfecto salir a la calle. Ideal para el verano."
   },
   {
@@ -51,6 +51,81 @@ const productos = [
         nombre: "Negra y Rosa",
         codigo: "linear-gradient(to right, black, pink)",
         imagenes: ["./images/camisetaCaritaRosa.png", "./images/camisetaCaritaRosaDetras.png"]
+      }
+    ]
+  },
+  {
+    nombre: "Camiseta FOCUS",
+    tipo: "camiseta",
+    precio: "12,95€",
+    imagenes: ["./images/camisetaFocusDelante.png", "./images/camisetaFocusDetras.png"],
+    descripcion: "Camiseta palabra FOCUS. Ideal para entrenar con energía.",
+    colores: [
+      {
+        nombre: "Blanca",
+        codigo: "#ffffff",
+        imagenes: ["./images/camisetaFocusDelanteBlanca.png", "./images/camisetaFocusDetrasBlanca.png"]
+      },
+      {
+        nombre: "Negra",
+        codigo: "#000000",
+        imagenes: ["./images/camisetaFocusDelante.png", "./images/camisetaFocusDetras.png"]
+      }
+    ]
+  },
+  {
+    nombre: "Camiseta APTITUDE",
+    tipo: "camiseta",
+    precio: "12,95€",
+    descripcion: "Camiseta básica con diseño minimalista. Ideal para el verano.",
+    colores: [
+      {
+        nombre: "Negra y Naranja",
+        codigo: "linear-gradient(to right, black, orange)",
+        imagenes: ["./images/camiseta3.png", "./images/camisetaAptitudeNaranja.png"]
+      },
+      {
+        nombre: "Negra y Rosa",
+        codigo: "linear-gradient(to right, black, pink)",
+        imagenes: ["./images/camiseta3.png", "./images/camisetaAptitudeRosa.png"]
+      },
+      {
+        nombre: "Negra y Amarilla",
+        codigo: "linear-gradient(to right, black, yellow)",
+        imagenes: ["./images/camiseta3.png", "./images/camisetaAptitudeAmarilla.png"]
+      },
+      {
+        nombre: "Negra y Azul",
+        codigo: "linear-gradient(to right, black, blue)",
+        imagenes: ["./images/camiseta3.png", "./images/camisetaAptitudeAzul.png"]
+      },
+      {
+        nombre: "Negra y Morada",
+        codigo: "linear-gradient(to right, black, purple)",
+        imagenes: ["./images/camiseta3.png", "./images/camisetaAptitudeMorada.png"]
+      }
+    ]
+  },
+  {
+    nombre: "Camiseta ATTITUDE",
+    tipo: "camiseta",
+    precio: "12,95€",
+    descripcion: "Camiseta básica con diseño minimalista. Ideal para el verano.",
+    colores: [
+      {
+        nombre: "Blanca y Morada",
+        codigo: "linear-gradient(to right, white, purple)",
+        imagenes: ["./images/camisetaBlancaLogoNegro.png", "./images/camisetaAttitudeMorada.png"]
+      },
+      {
+        nombre: "Blanca y Naranja",
+        codigo: "linear-gradient(to right, white, orange)",
+        imagenes: ["./images/camisetaBlancaLogoNegro.png", "./images/camisetaAttitudeNaranja.png"]
+      },
+      {
+        nombre: "Blanca y Rosa",
+        codigo: "linear-gradient(to right, white, pink)",
+        imagenes: ["./images/camisetaBlancaLogoNegro.png", "./images/camisetaAttitudeRosa.png"]
       }
     ]
   }

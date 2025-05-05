@@ -19,7 +19,7 @@ const productos = [
   },
   {
     nombre: "Camiseta WORK IT Negra",
-    tipo: "pantalon",
+    tipo: "camiseta",
     precio: "12,95€",
     imagenes: ["./images/camiseta3.png", "./images/camiseta4.png"],
     descripcion: "Camiseta con diseño perfecto para ir al gimnasio o salir a la calle."

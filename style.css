@@ -243,6 +243,10 @@ footer.contacto a:hover {
     height: 350px;
   }
 
+  .titulo {
+    height: 50;
+  }
+
   .logo {
     height: 60px;
     width: auto;

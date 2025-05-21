@@ -191,7 +191,6 @@ function renderProductos() {
     flechasContenedor.appendChild(btnNext);
     imagenContenedor.appendChild(flechasContenedor);
 
-    // Swatches de color dentro de la imagen, justo debajo de las flechas
     if (producto.colores) {
       const coloresCont = document.createElement("div");
       coloresCont.className = "colores-cont";
@@ -230,9 +229,9 @@ function renderProductos() {
   });
 }
 
-document.querySelectorAll(".filtros button").forEach(boton => {
+document.querySelectorAll(".grupo-filtros button").forEach(boton => {
   boton.addEventListener("click", () => {
-    document.querySelectorAll(".filtros button").forEach(b => b.classList.remove("activo"));
+    document.querySelectorAll(".grupo-filtros button").forEach(b => b.classList.remove("activo"));
     boton.classList.add("activo");
     filtroActivo = boton.dataset.filtro;
     renderProductos();
@@ -244,4 +243,22 @@ document.getElementById("buscador").addEventListener("input", e => {
   renderProductos();
 });
 
+document.getElementById("menu-btn").addEventListener("click", () => {
+  document.getElementById("menu-lateral").classList.add("abierto");
+});
+
+document.getElementById("cerrar-menu").addEventListener("click", () => {
+  document.getElementById("menu-lateral").classList.remove("abierto");
+});
+
 renderProductos();
+
+// Abrir y cerrar menú lateral
+document.getElementById('menu-btn').addEventListener('click', () => {
+  document.getElementById('menu-lateral').classList.add('abierto');
+});
+
+document.getElementById('cerrar-menu').addEventListener('click', () => {
+  document.getElementById('menu-lateral').classList.remove('abierto');
+});
+

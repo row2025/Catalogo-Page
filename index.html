@@ -9,19 +9,20 @@
 <body>
   <header>
     <img src="./images/iconoRow.png" alt="Logo ROW" class="logo" />
-    <img src="./images/icono.png" alt="icono titulo ROW" class="titulo"></img>
+    <img src="./images/icono.png" alt="icono titulo ROW" class="titulo" />
+    <button class="menu-btn" id="menu-btn">&#9776;</button>
   </header>
-  
-  
-  <!-- Filtros y buscador -->
-  <section class="filtros">
+
+  <!-- Menú hamburguesa con filtros y buscador -->
+  <nav class="menu-lateral" id="menu-lateral">
+    <button class="cerrar-menu" id="cerrar-menu">&times;</button>
     <div class="grupo-filtros">
-      <button data-filtro="todos" class="activo">Todos</button>
-      <button data-filtro="camiseta">Camisetas</button>
-      <!-- <button data-filtro="pantalón">Pantalones</button> -->
+      <button data-filtro="todos" class="activo, filtros">Todos</button>
+      <button data-filtro="camiseta" class="filtros">Camisetas</button>
     </div>
-    <input type="text" id="buscador" placeholder="Buscar producto..." />
-  </section>
+  </nav>
+
+  <input type="text" id="buscador" placeholder="Buscar producto..." />
 
   <!-- Catálogo -->
   <main class="catalogo" id="catalogo"></main>

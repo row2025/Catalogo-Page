@@ -9,6 +9,10 @@ body {
   overflow-x: hidden;
 }
 
+body::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
+}
+
 /* HEADER */
 header {
   background: linear-gradient(to right, #313131, #de3838);

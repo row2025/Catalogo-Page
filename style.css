@@ -267,7 +267,6 @@ footer.contacto a {
 footer.contacto a:hover {
   text-decoration: underline;
 }
-
 /* Responsive */
 @media (max-width: 1024px) {
   .catalogo {
@@ -275,7 +274,7 @@ footer.contacto a:hover {
   }
 
   .imagen-contenedor {
-    height: 350px;
+    height: 250px; /* Reducido para portátiles */
   }
 
   .logo {
@@ -330,18 +329,12 @@ footer.contacto a:hover {
     height: 16px;
   }
 
-  .filtros{
+  .filtros {
     font-size: 0.9rem;
     width: 210px;
   }
+
   .menu-lateral {
     width: 60%;
-  }
-}
-
-/* Hover zoom solo escritorio */
-@media (min-width: 1025px) {
-  .producto:hover .imagen-contenedor img {
-    transform: scale(1.05);
   }
 }

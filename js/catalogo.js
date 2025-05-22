@@ -12,8 +12,9 @@ async function cargarCatalogo() {
     const snapshot = await getDocs(productosRef);
 
     todosLosProductos = [];
-    snapshot.forEach(doc => {
-      const data = doc.data();
+    snapshot.forEach(docSnap => {
+      const data = docSnap.data();
+      data.id = docSnap.id;
       todosLosProductos.push(data);
     });
 
@@ -61,6 +62,7 @@ function mostrarProductos(lista) {
 
     const coloresCont = document.createElement('div');
     coloresCont.className = 'colores-cont';
+    imagenContenedor.appendChild(coloresCont);
 
     const info = document.createElement('div');
     info.className = 'info';
@@ -145,7 +147,10 @@ function mostrarProductos(lista) {
       coloresCont.children[0].classList.add('activo');
     }
 
-    imagenContenedor.appendChild(coloresCont); // Los swatches están dentro del contenedor de imagen
+    card.addEventListener('click', (e) => {
+      if (e.target.closest('.flecha') || e.target.closest('.swatch')) return;
+      window.location.href = `./pages/detalle.html?id=${data.id}`;
+    });
 
     card.appendChild(imagenContenedor);
     card.appendChild(info);
@@ -154,7 +159,6 @@ function mostrarProductos(lista) {
   });
 }
 
-// Buscador en tiempo real
 buscador.addEventListener('input', () => {
   const texto = buscador.value.toLowerCase();
   const filtrados = todosLosProductos.filter(p =>

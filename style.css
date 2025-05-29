@@ -284,6 +284,10 @@ footer.contacto a:hover {
   .titulo {
     height: 60px;
   }
+
+  #buscador{
+  width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
@@ -295,6 +299,10 @@ footer.contacto a:hover {
 
   .imagen-contenedor {
     height: 280px;
+  }
+
+  #buscador{
+    width: 100%;
   }
 }
 
@@ -336,5 +344,9 @@ footer.contacto a:hover {
 
   .menu-lateral {
     width: 60%;
+  }
+
+  #buscador{
+    width: 100%;
   }
 }

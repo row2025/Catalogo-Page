@@ -346,7 +346,11 @@ footer.contacto a:hover {
     width: 60%;
   }
 
-  #buscador{
+  #buscador {
     width: 100%;
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+    border: 2px solid #ccc;
+    border-radius: 20px;
   }
 }

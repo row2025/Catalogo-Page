@@ -318,3 +318,29 @@ footer.contacto a:hover {
     padding: 1rem;
   }
 }
+
+@media (max-width: 415px) {
+  /* Estilos específicos para móviles tipo Xiaomi */
+  .carousel {
+    max-width: 100%;
+  }
+
+  .info {
+    padding: 0.75rem;
+  }
+
+  .talla-btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .stars {
+    font-size: 1.4rem;
+  }
+
+  button {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+}
+

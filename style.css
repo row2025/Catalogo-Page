@@ -51,16 +51,17 @@ header {
   justify-content: center;
 }
 
+/* 🟢 Carrusel adaptado para todos los dispositivos */
 .carousel {
   flex: 1 1 55%;
+  width: 100%;
   max-width: 337px;
-  width: 337px;
-  height: 600px;
   margin: 0 auto;
   overflow: hidden;
   border-radius: 12px;
   background-color: #000;
   position: relative;
+  aspect-ratio: 9 / 16;
 }
 
 .carousel-container {
@@ -70,8 +71,9 @@ header {
 }
 
 .carousel-item {
-  width: 337px;
-  height: 600px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 9 / 16;
   flex-shrink: 0;
   display: flex;
   justify-content: center;
@@ -79,20 +81,14 @@ header {
   background: black;
 }
 
-.carousel-item img {
-  height: 100%;
-  width: auto;
+.carousel-item img,
+.carousel-item video {
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
   pointer-events: none;
-}
-
-.carousel-item video {
-  max-height: 100%;
-  width: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
 .carousel-btn {
@@ -231,27 +227,23 @@ footer.contacto a:hover {
   border-color: #ff5252;
 }
 
+/* 📱 Responsive: tablets y móviles */
 @media (max-width: 768px) {
   .carousel {
     width: 90vw;
-    height: auto; /* altura dinámica */
-  }
-
-  .carousel-container {
-    height: auto; /* que se adapte */
+    height: auto;
+    aspect-ratio: 9 / 16;
   }
 
   .carousel-item {
     width: 100%;
-    height: auto; /* altura dinámica */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: auto;
+    aspect-ratio: 9 / 16;
   }
 
   .carousel-item img,
   .carousel-item video {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     object-fit: contain;
     border-radius: 12px;
@@ -281,7 +273,6 @@ footer.contacto a:hover {
   }
 }
 
-
 @media (max-width: 480px) {
   header {
     font-size: 1.5rem;
@@ -309,10 +300,12 @@ footer.contacto a:hover {
   .carousel {
     height: auto;
     max-width: 100%;
+    aspect-ratio: 9 / 16;
   }
 
   .carousel-item {
     height: auto;
+    aspect-ratio: 9 / 16;
   }
 
   .info {

@@ -172,6 +172,7 @@ footer.contacto a:hover {
   text-decoration: underline;
 }
 
+/* ⭐ Valoraciones */
 .stars {
   display: flex;
   flex-direction: row;
@@ -196,6 +197,7 @@ footer.contacto a:hover {
   transform: translateY(140%);
 }
 
+/* 👕 Selector de tallas */
 .tallas-selector {
   transform: translateY(-127%);
   margin-top: 1rem;
@@ -258,8 +260,12 @@ footer.contacto a:hover {
     width: 100%;
   }
 
-  .price, .description, .description_low, .titulo_descrpcion,
-  .rating-section, .tallas-selector {
+  .price,
+  .description,
+  .description_low,
+  .titulo_descrpcion,
+  .rating-section,
+  .tallas-selector {
     transform: none;
   }
 

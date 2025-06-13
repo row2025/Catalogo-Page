@@ -1,4 +1,4 @@
-import { db, collection, setDoc, doc, getDoc } from './firebase.js';
+import { db, collection, setDoc, doc, getDoc, getDocs } from './firebase.js';
 
 let currentSlide = 0;
 
@@ -44,47 +44,21 @@ async function guardarValoracion(valor) {
     return;
   }
 
-  const userDocRef = doc(db, "valoraciones", PRODUCT_ID);
   const userIPRef = doc(collection(db, "valoraciones", PRODUCT_ID, "users"), userIP);
-
   const userVoteSnap = await getDoc(userIPRef);
-  const docSnap = await getDoc(userDocRef);
-  let votos = [];
-
-  if (docSnap.exists()) {
-    votos = docSnap.data().votos || [];
-  }
 
   if (userVoteSnap.exists()) {
     const oldValoracion = userVoteSnap.data().valoracion;
-
     if (oldValoracion === valor) {
       alert("Ya tienes esta valoración. Gracias.");
       return;
     }
-
-    await setDoc(userIPRef, {
-      valoracion: valor,
-      timestamp: new Date()
-    });
-
-    const index = votos.indexOf(oldValoracion);
-    if (index !== -1) {
-      votos[index] = valor;
-    } else {
-      votos.push(valor);
-    }
-
-    await setDoc(userDocRef, { votos }, { merge: true });
-  } else {
-    await setDoc(userIPRef, {
-      valoracion: valor,
-      timestamp: new Date()
-    });
-
-    votos.push(valor);
-    await setDoc(userDocRef, { votos }, { merge: true });
   }
+
+  await setDoc(userIPRef, {
+    valoracion: valor,
+    timestamp: new Date()
+  });
 
   userVotedValue = valor;
   resaltarEstrellas(valor);
@@ -92,16 +66,22 @@ async function guardarValoracion(valor) {
 }
 
 async function mostrarMediaValoracion() {
-  const docRef = doc(db, "valoraciones", PRODUCT_ID);
-  const docSnap = await getDoc(docRef);
+  const usersCollectionRef = collection(db, "valoraciones", PRODUCT_ID, "users");
+  const snapshot = await getDocs(usersCollectionRef);
 
-  if (docSnap.exists()) {
-    const votos = docSnap.data().votos || [];
-    const media = votos.reduce((a, b) => a + b, 0) / votos.length;
-    document.getElementById("avg-value").innerText = media.toFixed(1);
-  } else {
-    document.getElementById("avg-value").innerText = "-";
-  }
+  let total = 0;
+  let count = 0;
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    if (typeof data.valoracion === 'number') {
+      total += data.valoracion;
+      count++;
+    }
+  });
+
+  const media = count > 0 ? total / count : 0;
+  document.getElementById("avg-value").innerText = count > 0 ? media.toFixed(1) : "-";
 }
 
 // Estrellas

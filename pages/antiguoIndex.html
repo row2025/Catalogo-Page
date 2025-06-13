@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ROW - Catálogo</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header>
+    <img src="./images/iconoRow.png" alt="Logo ROW" class="logo" />
+    <img src="./images/icono.png" alt="icono titulo ROW" class="titulo" />
+    <button class="menu-btn" id="menu-btn">&#9776;</button>
+  </header>
+
+  <nav class="menu-lateral" id="menu-lateral">
+    <button class="cerrar-menu" id="cerrar-menu">&times;</button>
+    <div class="grupo-filtros">
+      <button data-filtro="todos" class="filtros activo">Todos</button>
+      <button data-filtro="camiseta" class="filtros">Camisetas</button>
+    </div>
+  </nav>
+
+  <input type="text" id="buscador" placeholder="Buscar producto..." />
+  <main class="catalogo" id="catalogo"></main>
+
+  <footer class="contacto">
+    <h2>Contáctanos</h2>
+    <p>Email: <a href="mailto:row202502@gmail.com">row202502@gmail.com</a></p>
+    <p>Instagram: <a href="https://www.instagram.com/rowessences/" target="_blank">@rowessences</a></p>
+    <p>Teléfono: <a href="https://wa.me/34697247882" target="_blank">+34 697 247 882</a></p>
+  </footer>
+
+  <script type="module" src="./js/catalogo.js"></script>
+  <script src="./js/menu.js"></script>
+</body>
+</html>

@@ -234,19 +234,27 @@ footer.contacto a:hover {
 @media (max-width: 768px) {
   .carousel {
     width: 90vw;
-    height: auto;
+    height: auto; /* altura dinámica */
+  }
+
+  .carousel-container {
+    height: auto; /* que se adapte */
   }
 
   .carousel-item {
     width: 100%;
-    height: auto;
+    height: auto; /* altura dinámica */
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .carousel-item img,
   .carousel-item video {
-    width: 100%;
+    max-width: 100%;
     height: auto;
     object-fit: contain;
+    border-radius: 12px;
   }
 
   .carousel-btn {

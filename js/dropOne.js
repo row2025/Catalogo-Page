@@ -26,6 +26,16 @@ function ocultarFormulario() {
 document.getElementById('formCompra').addEventListener('submit', async (e) => {
   e.preventDefault();
 
+  const cantidadS = parseInt(document.getElementById("cantidadS").value, 10);
+  const cantidadM = parseInt(document.getElementById("cantidadM").value, 10);
+  const cantidadL = parseInt(document.getElementById("cantidadL").value, 10);
+
+  if (cantidadS + cantidadM + cantidadL === 0) {
+    alert("Debes seleccionar al menos una camiseta.");
+    return;
+  }
+
+
   const nombre = e.target.nombre.value.trim();
   const email = e.target.email.value.trim();
   const direccion = e.target.direccion.value.trim();
@@ -44,8 +54,14 @@ document.getElementById('formCompra').addEventListener('submit', async (e) => {
       email,
       direccion,
       telefono,
-      fecha: new Date()
+      fecha: new Date(),
+      pedido: {
+        S: cantidadS,
+        M: cantidadM,
+        L: cantidadL
+      }
     });
+
 
     alert('¡Gracias por tu pedido! Nos pondremos en contacto pronto.');
 
@@ -73,12 +89,16 @@ async function fetchUserIP() {
   }
 }
 
-function resaltarEstrellas(valor) {
+
+function resaltarEstrellas(valor, esVotoUsuario = false) {
+  if (userVotedValue !== null && !esVotoUsuario) return;
+
   stars.forEach(star => {
     const val = parseFloat(star.getAttribute("data-value"));
     star.classList.toggle("active", val <= valor);
   });
 }
+
 
 async function guardarValoracion(valor) {
   if (!userIP) {
@@ -129,7 +149,7 @@ async function guardarValoracion(valor) {
   }
 
   userVotedValue = valor;
-  resaltarEstrellas(valor);
+  resaltarEstrellas(valor, true); // Esto sí actualiza las estrellas
   mostrarMediaValoracion();
 }
 
@@ -150,6 +170,18 @@ async function mostrarMediaValoracion() {
   document.getElementById("avg-value").textContent = media;
   resaltarEstrellas(media);
 }
+
+let tallaSeleccionada = null;
+
+document.querySelectorAll(".talla-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".talla-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    tallaSeleccionada = btn.textContent.trim();
+  });
+});
+
 
 stars.forEach(star => {
   star.addEventListener("click", () => {

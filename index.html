@@ -1,3 +1,4 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -8,15 +9,12 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 <body>
-
   <header>
     <img src="images/iconoRow.png" alt="Logo ROW" class="logo" />
     <img src="images/IconoRowNuevo.png" alt="icono titulo ROW" class="titulo" />
   </header>
-
   <main class="container">
     <div class="carousel-info-wrapper">
-      <!-- Carrusel -->
       <section class="carousel">
         <div class="carousel-container" id="carousel-container">
           <div class="carousel-item"><img src="images/camisetaRowDelantera.jpg" alt="Camiseta vista frontal" /></div>
@@ -31,29 +29,46 @@
         <button class="carousel-btn prev" onclick="moveSlide(-1)">&#10094;</button>
         <button class="carousel-btn next" onclick="moveSlide(1)">&#10095;</button>
       </section>
-
-      <!-- Info a la derecha -->
       <section class="info">
         <h2 class="titulo_descrpcion">Camiseta FLAWLESS</h2>
         <p class="price">Precio: <strong>19,95€</strong></p>
         <p class="description">
-          Esta camiseta forma parte del primer drop de la marca <strong>ROW</strong>, existencias limitadas (16).  
-          Tejido de alta calidad, fit oversize, y un diseño exclusivo  
-          inspirado en la mentalidad del éxito: determinación, ambición y estilo sin miedo.
+          Esta camiseta forma parte del primer drop de la marca <strong>ROW</strong>, existencias limitadas (16).<br />
+          Tejido de alta calidad, fit oversize, y un diseño exclusivo inspirado en la mentalidad del éxito: determinación, ambición y estilo sin miedo.
         </p>
         <p class="description_low">Disponible hasta fin de existencia.</p>
-
-        <!-- Selector de tallas estilo Amazon -->
         <div class="tallas-selector">
           <p>Selecciona una talla:</p>
           <div class="tallas">
-            <button class="talla-btn" data-talla="S">S</button>
-            <button class="talla-btn" data-talla="M">M</button>
-            <button class="talla-btn" data-talla="L">L</button>
+            <div class="talla-option">
+              <button class="talla-btn" data-talla="S">S</button>
+              <select id="cantidadS" name="cantidadS">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="talla-option">
+              <button class="talla-btn" data-talla="M">M</button>
+              <select id="cantidadM" name="cantidadM">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="talla-option">
+              <button class="talla-btn" data-talla="L">L</button>
+              <select id="cantidadL" name="cantidadL">
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
           </div>
         </div>
-
-        <!-- Sistema de valoración -->
         <div class="rating-section">
           <p>Valoración:</p>
           <div class="stars">
@@ -65,43 +80,31 @@
           </div>
           <p id="average-rating">Media: <span id="avg-value">-</span> estrellas</p>
         </div>
-
-        <button onclick="mostrarFormulario()">Comprar ahora</button> 
-
-        <!-- Formulario de compra oculto inicialmente -->
+        <button onclick="mostrarFormulario()">Comprar ahora</button>
         <div id="formulario-compra" style="display:none;">
           <h3>Formulario de Compra</h3>
           <form id="formCompra">
             <label for="nombre">Nombre completo:</label>
             <input type="text" id="nombre" name="nombre" required />
-
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required />
-
             <label for="direccion">Dirección de envío:</label>
             <input type="text" id="direccion" name="direccion" required />
-
             <label for="telefono">Teléfono:</label>
             <input type="tel" id="telefono" name="telefono" required />
-
             <button type="submit">Enviar Pedido</button>
-
             <button type="button" onclick="ocultarFormulario()">Cancelar</button>
-            
           </form>
         </div>
-
       </section>
     </div>
   </main>
-
   <footer class="contacto">
     <h2>Contáctanos</h2>
     <p>Email: <a href="mailto:row202502@gmail.com">row202502@gmail.com</a></p>
     <p>Instagram: <a href="https://www.instagram.com/rowessences/" target="_blank">@rowessences</a></p>
     <p>Teléfono: <a href="https://wa.me/34697247882" target="_blank">+34 697 247 882</a></p>
   </footer>
-
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
   <script type="module" src="js/dropOne.js"></script>

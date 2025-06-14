@@ -66,7 +66,31 @@
           <p id="average-rating">Media: <span id="avg-value">-</span> estrellas</p>
         </div>
 
-        <!-- <button onclick="comprar()">Comprar ahora</button> -->
+        <button onclick="mostrarFormulario()">Comprar ahora</button> 
+
+        <!-- Formulario de compra oculto inicialmente -->
+        <div id="formulario-compra" style="display:none;">
+          <h3>Formulario de Compra</h3>
+          <form id="formCompra">
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" required />
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+
+            <label for="direccion">Dirección de envío:</label>
+            <input type="text" id="direccion" name="direccion" required />
+
+            <label for="telefono">Teléfono:</label>
+            <input type="tel" id="telefono" name="telefono" required />
+
+            <button type="submit">Enviar Pedido</button>
+
+            <button type="button" onclick="ocultarFormulario()">Cancelar</button>
+            
+          </form>
+        </div>
+
       </section>
     </div>
   </main>

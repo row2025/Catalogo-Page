@@ -11,9 +11,51 @@ function moveSlide(direction) {
   container.style.transform = `translateX(-${currentSlide * 337}px)`;
 }
 
-function comprar() {
-  alert('¡Gracias por tu compra! Próximamente te contactaremos.');
+function mostrarFormulario() {
+  const formDiv = document.getElementById('formulario-compra');
+  formDiv.style.display = 'block';
+  window.scrollTo({ top: formDiv.offsetTop, behavior: 'smooth' });
 }
+
+function ocultarFormulario() {
+  const formDiv = document.getElementById('formulario-compra');
+  formDiv.style.display = 'none';
+}
+
+// Manejo del envío del formulario de compra
+document.getElementById('formCompra').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const nombre = e.target.nombre.value.trim();
+  const email = e.target.email.value.trim();
+  const direccion = e.target.direccion.value.trim();
+  const telefono = e.target.telefono.value.trim();
+
+  if (!nombre || !email || !direccion || !telefono) {
+    alert('Por favor completa todos los campos.');
+    return;
+  }
+
+  try {
+    // Creamos un documento con ID autogenerado en la colección 'datosCompra'
+    const nuevoPedidoRef = doc(collection(db, 'datosCompra'));
+    await setDoc(nuevoPedidoRef, {
+      nombre,
+      email,
+      direccion,
+      telefono,
+      fecha: new Date()
+    });
+
+    alert('¡Gracias por tu pedido! Nos pondremos en contacto pronto.');
+
+    e.target.reset();
+    document.getElementById('formulario-compra').style.display = 'none';
+  } catch (error) {
+    console.error('Error guardando pedido en Firebase:', error);
+    alert('Hubo un error al enviar tu pedido. Por favor, inténtalo de nuevo.');
+  }
+});
 
 const PRODUCT_ID = "flawless_tshirt";
 const stars = document.querySelectorAll(".stars i");
@@ -94,58 +136,32 @@ async function guardarValoracion(valor) {
 async function mostrarMediaValoracion() {
   const docRef = doc(db, "valoraciones", PRODUCT_ID);
   const docSnap = await getDoc(docRef);
-
-  if (docSnap.exists()) {
-    const votos = docSnap.data().votos || [];
-    const media = votos.reduce((a, b) => a + b, 0) / votos.length;
-    document.getElementById("avg-value").innerText = media.toFixed(1);
-  } else {
-    document.getElementById("avg-value").innerText = "-";
+  if (!docSnap.exists()) {
+    document.getElementById("avg-value").textContent = "-";
+    return;
   }
+  const votos = docSnap.data().votos || [];
+  if (votos.length === 0) {
+    document.getElementById("avg-value").textContent = "-";
+    return;
+  }
+  const suma = votos.reduce((a, b) => a + b, 0);
+  const media = (suma / votos.length).toFixed(2);
+  document.getElementById("avg-value").textContent = media;
+  resaltarEstrellas(media);
 }
 
-// Estrellas
 stars.forEach(star => {
-  star.addEventListener("mouseenter", () => {
-    resaltarEstrellas(parseFloat(star.getAttribute("data-value")));
-  });
-
-  star.addEventListener("mouseleave", () => {
-    resaltarEstrellas(userVotedValue || 0);
-  });
-
-  star.addEventListener("click", async () => {
-    const value = parseFloat(star.getAttribute("data-value"));
-    await guardarValoracion(value);
+  star.addEventListener("click", () => {
+    const valor = parseInt(star.getAttribute("data-value"));
+    guardarValoracion(valor);
   });
 });
 
-// Selector de talla estilo Amazon
-const tallaButtons = document.querySelectorAll(".talla-btn");
-tallaButtons.forEach(btn => {
-  btn.addEventListener("click", () => {
-    tallaButtons.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-    const tallaSeleccionada = btn.dataset.talla;
-    console.log("Talla seleccionada:", tallaSeleccionada);
-  });
-});
+// Inicializar
+fetchUserIP();
+mostrarMediaValoracion();
 
-(async () => {
-  await fetchUserIP();
-
-  if (userIP) {
-    const userIPRef = doc(collection(db, "valoraciones", PRODUCT_ID, "users"), userIP);
-    const userVoteSnap = await getDoc(userIPRef);
-
-    if (userVoteSnap.exists()) {
-      userVotedValue = userVoteSnap.data().valoracion;
-      resaltarEstrellas(userVotedValue);
-    }
-  }
-
-  await mostrarMediaValoracion();
-})();
-
+window.ocultarFormulario = ocultarFormulario;
+window.mostrarFormulario = mostrarFormulario;
 window.moveSlide = moveSlide;
-window.comprar = comprar;
